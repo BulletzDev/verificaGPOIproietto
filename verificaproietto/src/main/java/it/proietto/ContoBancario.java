@@ -1,5 +1,7 @@
 package it.proietto;
 
+import java.util.ArrayList;
+
 /**
  * Classe che rappresenta un conto bancario.
  */
@@ -12,6 +14,11 @@ public class ContoBancario {
      * Il saldo del conto bancario.
      */
     protected double saldo;
+
+    /**
+     * La lista dei movimenti del conto bancario.
+     */
+    protected ArrayList<String> movimenti = new ArrayList<String>();
 
     /**
      * Costruttore che inizializza il conto bancario con un IBAN e un saldo.
@@ -37,7 +44,7 @@ public class ContoBancario {
         return saldo;
     }
     /**
-     * Deposita una somma di denaro sul conto bancario, incrementando il saldo.
+     * Deposita una somma di denaro sul conto bancario, incrementando il saldo. Viene aggiornata la lista dei movimenti
      * @param importo la somma di denaro da depositare
      * @throws IllegalArgumentException se l'importo da depositare è negativo o zero
      */
@@ -48,10 +55,11 @@ public class ContoBancario {
         {
             throw new IllegalArgumentException("L'importo da depositare deve essere positivo.");
         }
+        movimenti.add("Deposito: " + importo + " EUR");
     }
 
     /**
-     * Preleva una somma di denaro dal conto bancario, decrementando il saldo
+     * Preleva una somma di denaro dal conto bancario, decrementando il saldo Viene aggiornata la lista dei movimenti
      * @param importo la somma di denaro da prelevare
      * @throws IllegalArgumentException se l'importo e' negativo o supera il saldo
      */
@@ -65,6 +73,7 @@ public class ContoBancario {
         else {
             throw new IllegalArgumentException("Saldo insufficiente per il prelievo.");
         }
+        movimenti.add("Prelievo: " + importo + " EUR");
     }
 
     /**
@@ -79,5 +88,26 @@ public class ContoBancario {
      */
     public String toString() {
         return "ContoBancario [iban=" + iban + ", saldo=" + saldo + "]";
+    }
+
+    /**
+     * Restituisce la lista dei movimenti del conto bancario.
+     * @return la lista dei movimenti del conto bancario
+     */
+    public ArrayList<String> getMovimenti() {
+        return movimenti;
+    }
+
+    /**
+     * Restituisce gli ultimi n movimenti del conto bancario.
+     * @param n  il numero di movimenti da restituire
+     * @return gli ultimi n movimenti del conto bancario
+     */
+    public ArrayList<String> getUltimiMovimenti(int n){
+        int size = movimenti.size();
+        if (n > size) {
+            n = size;
+        }
+        return new ArrayList<String>(movimenti.subList(size - n, size));
     }
 }

@@ -11,5 +11,9 @@ public class Main {
 
         conto.preleva(200.0);
         System.out.println("Saldo dopo prelievo: " + conto.getSaldo());
+        //otteniamo gli ultimi movimenti del conto bancario
+        System.out.println("Movimenti del conto bancario:");
+        System.out.println(conto.getUltimiMovimenti(1));
+        System.out.println(conto.getMovimenti());
     }
 }
